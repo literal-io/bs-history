@@ -30,10 +30,19 @@ type memoryHistoryOptions = {
 };
 
 [@bs.obj]
-external makeMemoryHistory :
+external makeMemoryHistoryOptions :
   (~initialEntries: array(string), ~initialIndex: int, ~keyLength: int) =>
   memoryHistoryOptions =
   "";
 
 [@bs.module "history/createMemoryHistory"]
 external createMemoryHistory : memoryHistoryOptions => t = "default";
+
+type hashHistoryOptions = {. "basename": string};
+
+[@bs.obj]
+external makeHashHistoryOptions : (~basename: string) => hashHistoryOptions =
+  "";
+
+[@bs.module "history/createHashHistory"]
+external createHashHistory : hashHistoryOptions => t = "default";
