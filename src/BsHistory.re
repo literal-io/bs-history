@@ -6,7 +6,12 @@ module Location = {
 };
 
 module Action = {
-  type t;
+  [@bs.deriving jsConverter]
+  type t = [
+    | [@bs.as "PUSH"] `Push
+    | [@bs.as "POP"] `Pop
+    | [@bs.as "REPLACE"] `Replace
+  ];
 };
 
 type t;
@@ -15,8 +20,18 @@ type t;
 
 [@bs.send.pipe : t]
 external listen :
-  ([@bs] ((Location.t, Action.t) => unit)) => [@bs] (unit => unit) =
+  ([@bs] ((Location.t, string) => unit)) => [@bs] (unit => unit) =
   "";
+
+let listen = (cb) =>
+  listen((. location, action) =>
+    cb(
+      location, 
+      action
+      |> Action.tFromJs
+      |> Js.Option.getExn
+    )
+  );
 
 [@bs.send.pipe : t] external replace : string => unit = "";
 
