@@ -1,6 +1,7 @@
-# Basic Reason Template
+# bs-history
 
-Hello! This project allows you to quickly get started with Reason and BuckleScript. If you wanted a more sophisticated version, try the `react` template (`bsb -theme react -init .`).
+BuckleScript bindings to [history](https://github.com/ReactTraining/history).
+
 
 # Build
 ```
